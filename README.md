@@ -20,6 +20,10 @@
 
 ## What it does
 
+**JEV fork:** the new offline research boundary is documented in
+[docs/JEV.md](docs/JEV.md). It adds a Governor, deterministic RiskGate and three
+experimental challengers without connecting to these inherited live runners.
+
 This system day-trades Micro E-mini Nasdaq-100 futures (MNQ) on prop-firm funded accounts. Twelve independent quantitative models scan 1-minute bars, a priority resolver picks at most one trade at a time, and a risk layer enforces the account rules that actually kill funded traders: the trailing drawdown, the daily loss cap, and overnight exposure (there is none; everything flattens at 3:55 PM ET).
 
 The "5K payout" in the name is the goal the whole machine is optimized for: pass a $100K evaluation ($6,000 target, $3,000 trailing drawdown), then extract payouts of up to $5,000 while staying above the drawdown floor. Every design decision, from the 2.0R daily win cap to the 10-loss cooldown, exists to maximize the probability of repeated payouts rather than raw returns.

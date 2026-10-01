@@ -33,3 +33,4 @@ Thumbs.db
 
 # Generated backtest cache
 data/_trades_cache.pkl
+.pytest_cache/
