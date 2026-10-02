@@ -265,20 +265,12 @@ def replay(bars, config=ResearchConfig(), proposer=None):
                 data_valid=not contaminated, config=asdict(config))
 
 
-def practice_gate(folds, *, real_data):
-    """Frozen internal research criteria, not a firm qualification guarantee."""
-    if not real_data or len(folds) < 3 or any(not f["data_valid"] for f in folds):
-        return dict(status="INSUFFICIENT_EVIDENCE", reason="provenance_folds_or_data_quality")
-    if any(f["metrics"]["sample_size"] < 30 for f in folds):
-        return dict(status="INSUFFICIENT_EVIDENCE", reason="at_least_30_trades_per_fold_required")
-    combined = metrics([t for f in folds for t in f["trades"]])
-    passed = (combined["sample_size"] >= 100 and D(combined["expectancy"]) > 0
-              and combined["profit_factor"] is not None and D(combined["profit_factor"]) >= D("1.2")
-              and D(combined["drawdown"]) <= D(800)
-              and all(D(f["metrics"]["net_pnl"]) > 0 and D(f["metrics"]["drawdown"]) <= D(800) for f in folds))
-    if combined["sample_size"] < 100:
-        return dict(status="INSUFFICIENT_EVIDENCE", reason="at_least_100_oos_trades_required")
-    return dict(status="PASS" if passed else "FAIL", reason="frozen_oos_criteria", metrics=combined)
+def practice_gate(folds=None, *, real_data=False, falsification_report=None):
+    """v0.3: positive legacy P&L alone cannot authorize Practice."""
+    if falsification_report is None:
+        return dict(status="INSUFFICIENT_EVIDENCE", reason="v03_falsification_layers_required")
+    from .falsification.gates import practice_gate as upgraded_gate
+    return upgraded_gate(falsification_report)
 
 
 def walk_forward(bars, *, train_days=20, test_days=10, config=ResearchConfig(), real_data=False):

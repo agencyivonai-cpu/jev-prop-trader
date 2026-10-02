@@ -246,6 +246,12 @@ nq-es-trader-5k-payout/
 
 ## Testing
 
+JEV v0.3 adds an offline [three-arm falsification protocol](docs/FALSIFICATION.md):
+identical RAW/RULE/JEV candidates, separate OHLCV and order-flow research, protected
+holdout, session-block uncertainty, multiple-testing correction and mechanical audit.
+See [current dataset results](docs/FALSIFICATION_RESULTS.md). Existing replay summaries
+cannot authorize Practice without these layers.
+
 JEV v0.2 offline research: see [Research Harness](docs/RESEARCH.md) for the CSV
 replay command, evidence ledger, walk-forward windows and exact Practice gate.
 Existing OHLCV-only datasets do not establish challenger edge; missing signed
