@@ -246,6 +246,11 @@ nq-es-trader-5k-payout/
 
 ## Testing
 
+JEV v0.2 offline research: see [Research Harness](docs/RESEARCH.md) for the CSV
+replay command, evidence ledger, walk-forward windows and exact Practice gate.
+Existing OHLCV-only datasets do not establish challenger edge; missing signed
+volume delta fails closed. No live runner or broker connection is added.
+
 2,449 lines of tests across 7 files. The largest, `tests/test_live_robustness.py` (1,516 lines), attacks the failure modes that matter with real money: token refresh races, order placement timeouts, daily-cap enforcement, orphan position cleanup, mid-session restart reconstruction, and shutdown safety during a flatten.
 
 ## Disclaimer
