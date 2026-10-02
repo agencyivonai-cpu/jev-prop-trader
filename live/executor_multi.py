@@ -19,6 +19,7 @@ Funded account rules:
 from __future__ import annotations
 import json
 import logging
+import math
 import os
 import signal
 import time
@@ -658,7 +659,14 @@ class LiveExecutor:
         if risk_per_contract <= 0:
             return
 
-        model_risk = self.cfg.funded.model_risk_dollars.get(sig.model, 400)
+        model_risk = self.cfg.funded.model_risk_dollars.get(sig.model)
+        if (not isinstance(model_risk, (int, float)) or isinstance(model_risk, bool)
+                or not math.isfinite(model_risk) or model_risk <= 0):
+            self._log_decision({
+                'action': 'skip_signal', 'reason': 'missing_or_invalid_model_risk',
+                'model': sig.model,
+            })
+            return
         qty = min(self.max_contracts, int(model_risk / risk_per_contract))
         if qty <= 0:
             log.info(f"    SKIP -- qty=0: risk_per_contract=${risk_per_contract:.2f} > model_risk=${model_risk}")
