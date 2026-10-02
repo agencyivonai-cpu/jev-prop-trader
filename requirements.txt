@@ -5,3 +5,4 @@ tabulate>=0.9
 requests>=2.28
 python-dotenv>=1.0
 ib_insync>=0.9.86
+scipy>=1.15,<2

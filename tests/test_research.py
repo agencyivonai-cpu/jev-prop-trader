@@ -133,7 +133,7 @@ def fold(pnls):
 
 def test_gate_all_states():
     good = [fold([10, -2]*20)]*3
-    assert practice_gate(good, real_data=True)["status"] == "PASS"
+    assert practice_gate(good, real_data=True)["status"] == "INSUFFICIENT_EVIDENCE"
     assert practice_gate(good, real_data=False)["status"] == "INSUFFICIENT_EVIDENCE"
-    assert practice_gate([fold([-10, 2]*20)]*3, real_data=True)["status"] == "FAIL"
+    assert practice_gate([fold([-10, 2]*20)]*3, real_data=True)["status"] == "INSUFFICIENT_EVIDENCE"
     assert practice_gate([fold([10,-2]*15)]*3, real_data=True)["status"] == "INSUFFICIENT_EVIDENCE"

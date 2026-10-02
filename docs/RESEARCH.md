@@ -1,5 +1,9 @@
 # JEV v0.2 Research Harness
 
+The execution assumptions below remain available for replay. As of v0.3, the
+legacy numerical gate no longer authorizes PASS. See [Falsification protocol](FALSIFICATION.md)
+for the required evidence layers and [Current results](FALSIFICATION_RESULTS.md).
+
 Offline only: `python -m jev.research INPUT.csv --source-symbol MNQ --output report.json`.
 For the existing NQ CSV use `--source-symbol NQ --timezone America/New_York`.
 NQ is an explicitly declared price/volume proxy, not MNQ execution evidence.
